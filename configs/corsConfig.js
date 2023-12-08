@@ -1,5 +1,11 @@
 export const corsOptions = {
-  origin: "*",
   credentials: true,
-  optionSuccessStatus: 200,
+  allowedHeaders: [
+    "Accept",
+    "X-Access-Token",
+    "X-Application-Name",
+    "X-Request-Sent-Time",
+  ],
+  methods: ["GET", "POST", "OPTIONS"],
+  origin: "*",
 };
