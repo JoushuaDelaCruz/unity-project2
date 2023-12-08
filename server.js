@@ -17,7 +17,14 @@ const app = express();
 const port = process.env.PORT || 3100;
 const hashSalt = genSaltSync(12);
 
-app.use(cors({ origin: "*", credentials: true }));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+    secure: true,
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressSession(sessionConfig));
