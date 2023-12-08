@@ -1,9 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 import expressSession from "express-session";
+import cors from "cors";
 
 import "./configs/dotenvConfig.js";
 import { sessionConfig } from "./configs/sessionConfig.js";
+import { corsOptions } from "./configs/corsConfig.js";
 import { hash, compare, genSaltSync } from "bcrypt";
 import {
   register,
@@ -16,6 +18,7 @@ const app = express();
 const port = process.env.PORT || 3100;
 const hashSalt = genSaltSync(12);
 
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressSession(sessionConfig));
