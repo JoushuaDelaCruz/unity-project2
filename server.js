@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import expressSession from "express-session";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import "./configs/dotenvConfig.js";
 import { sessionConfig } from "./configs/sessionConfig.js";
@@ -17,14 +19,17 @@ import {
 const app = express();
 const port = process.env.PORT || 3100;
 const hashSalt = genSaltSync(12);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressSession(sessionConfig));
+app.use(express.static(path.join(__dirname, "/")));
 
-app.get("/", (_, res) => {
-  res.send("Welcome to unity server!");
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, +"/index.html"));
 });
 
 app.post("/register", async (req, res) => {
