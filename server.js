@@ -20,6 +20,7 @@ const hashSalt = genSaltSync(12);
 app.use(
   cors({
     origin: "*",
+    methods: ["GET", "POST"],
     credentials: true,
     secure: true,
     optionsSuccessStatus: 200,
