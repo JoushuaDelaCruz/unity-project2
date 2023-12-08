@@ -9,5 +9,6 @@ export const corsOptions = {
     "Content-Type",
   ],
   methods: ["GET", "POST", "OPTIONS"],
-  origin: "*",
+  origin: "https://shimmering-lily-0f8e29.netlify.app",
+  secure: true,
 };
