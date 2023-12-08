@@ -70,9 +70,14 @@ app.get("/user", async (req, res) => {
     res.status(200).send(req.session.username);
     return;
   }
+  res.sendStatus(403).send(null);
 });
 
 app.post("/score", async (req, res) => {
+  if (!req.session.authenticated) {
+    res.status(403).send();
+    return;
+  }
   const { score } = req.body;
   const { user_id } = req.session;
   const result = await updateScore(user_id, parseInt(score));
@@ -86,6 +91,10 @@ app.post("/score", async (req, res) => {
 });
 
 app.put("/gameOver", async (req, res) => {
+  if (!req.session.authenticated) {
+    res.status(403).send();
+    return;
+  }
   const { user_id } = req.session;
   const result = await updateScore(user_id, 0);
   if (result) {
